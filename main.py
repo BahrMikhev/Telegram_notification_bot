@@ -16,11 +16,6 @@ async def on_shutdown(dispatcher):
 
 
 async def save(user_id, text):
-    database.execute("""CREATE TABLE messages (
-id SERIAL PRIMARY KEY,
-telegram_id INTEGER NOT NULL,
-text text NOT NULL
-);""")
     await database.execute(f"INSERT INTO messages(telegram_id, text) "
                            f"VALUES (:telegram_id, :text)", values={'telegram_id': user_id, 'text': text})
 
