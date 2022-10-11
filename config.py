@@ -1,17 +1,19 @@
-# aiogram==2.19
-# aiohttp==3.8.1
-# aiosignal==1.2.0
-# async-timeout==4.0.2
-# asyncpg==0.25.0
-# attrs==21.4.0
-# Babel==2.9.1
-# certifi==2021.10.8
-# charset-normalizer==2.0.12
-# databases==0.5.5
-# frozenlist==1.3.0
-# greenlet==1.1.2
-# idna==3.3
-# multidict==6.0.2
-# pytz==2021.3
-# SQLAlchemy==1.4.31
-# yarl==1.7.2
+from aiogram.dispatcher import Dispatcher
+from aiogram import Bot
+import os
+
+TOKEN = os.getenv('BOT_TOKEN')
+bot = Bot(token=TOKEN)
+dp = Dispatcher(bot)
+
+HEROKU_APP_NAME = os.getenv('HEROKU_APP_NAME')
+
+# webhook settings
+WEBHOOK_HOST = f'https://{HEROKU_APP_NAME}.herokuapp.com'
+WEBHOOK_PATH = f'/webhook/{TOKEN}'
+WEBHOOK_URL = f'{WEBHOOK_HOST}{WEBHOOK_PATH}'
+
+# webserver settings
+WEBAPP_HOST = '0.0.0.0'
+WEBAPP_PORT = os.getenv('PORT', default=8000)
+DB_URL = os.getenv('DATABASE_URL')
